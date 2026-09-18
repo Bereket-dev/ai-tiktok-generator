@@ -1,0 +1,36 @@
+{
+  "name": "TikTok Creator",
+  "short_name": "Creator",
+  "description": "Record a short clip. Get one ready-to-post TikTok video.",
+  "start_url": "/am",
+  "display": "standalone",
+  "background_color": "#fff7ed",
+  "theme_color": "#c2410c",
+  "orientation": "portrait",
+  "categories": ["entertainment", "social"],
+  "lang": "am",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Create Video",
+      "short_name": "Create",
+      "description": "Start creating a new TikTok video",
+      "url": "/am/create",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

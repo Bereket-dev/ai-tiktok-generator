@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------
+   Design tokens — warm earth/sky palette (rural Ethiopia context)
+   ---------------------------------------------------------------- */
+:root {
+  /* Core palette */
+  --background: #fff7ed;        /* warm off-white (orange-50) */
+  --foreground: #1c1917;        /* stone-900 */
+
+  /* shadcn/ui CSS variable expectations */
+  --card: #ffffff;
+  --card-foreground: #1c1917;
+  --popover: #ffffff;
+  --popover-foreground: #1c1917;
+  --primary: #c2410c;           /* orange-700 — main brand */
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f4;         /* stone-100 */
+  --secondary-foreground: #1c1917;
+  --muted: #f5f5f4;
+  --muted-foreground: #78716c;  /* stone-500 */
+  --accent: #fed7aa;            /* orange-200 */
+  --accent-foreground: #9a3412; /* orange-800 */
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e7e5e4;            /* stone-200 */
+  --input: #e7e5e4;
+  --ring: #c2410c;
+
+  /* Radius */
+  --radius: 0.75rem;            /* 12px — rounded but friendly */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius: var(--radius);
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+/* Amharic script — prefer Noto Serif Ethiopic when available */
+:lang(am) {
+  font-family: "Noto Serif Ethiopic", "Noto Sans Ethiopic", system-ui, sans-serif;
+}
+
+/* Large tap targets for rural users */
+button,
+a,
+[role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+}
+
+/* Safe area padding helpers */
+.pt-safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.pb-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

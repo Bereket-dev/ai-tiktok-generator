@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "title": "TikTok Creator",
+    "description": "Record a short clip. Get one ready-to-post TikTok video."
+  },
+  "language": {
+    "pick": "Choose your language",
+    "en": "English",
+    "am": "አማርኛ"
+  },
+  "welcome": {
+    "headline": "Your story, ready for TikTok",
+    "promise": "Record a short clip. Get one polished 9:16 video — ready to post.",
+    "start": "Start Creating",
+    "privacy": "Your clip stays private until you download or share it.",
+    "howItWorks": "How it works",
+    "step1": "Choose an idea",
+    "step2": "Record 15–30 seconds",
+    "step3": "We polish it for TikTok",
+    "step4": "Download & post"
+  },
+  "ideas": {
+    "title": "What do you want to share?",
+    "subtitle": "Pick one to get started",
+    "daily_life": {
+      "label": "Daily Life",
+      "hint": "Show a moment from your day — morning routine, commute, work, or evening."
+    },
+    "farming_tip": {
+      "label": "Farming Tip",
+      "hint": "Share one thing you know about farming, crops, or livestock."
+    },
+    "village": {
+      "label": "My Village",
+      "hint": "Show your community, neighbourhood, or the view outside your window."
+    },
+    "food": {
+      "label": "My Food",
+      "hint": "Cook something, show a dish, or describe your favourite local food."
+    },
+    "skill": {
+      "label": "My Skill",
+      "hint": "Demonstrate a craft, trade, or talent you have."
+    },
+    "funny_story": {
+      "label": "Funny Story",
+      "hint": "Tell a short funny story — something that made you laugh recently."
+    },
+    "answer_question": {
+      "label": "Answer a Question",
+      "hint": "Answer a question you often get asked, or explain something people wonder about."
+    },
+    "surprise_me": {
+      "label": "Surprise Me",
+      "hint": "Record anything — we will make it look great."
+    }
+  },
+  "record": {
+    "title": "Record your clip",
+    "instructionPrefix": "Tip:",
+    "timer15": "15 sec",
+    "timer30": "30 sec",
+    "start": "Start Recording",
+    "stop": "Stop",
+    "retake": "Retake",
+    "continue": "Use this clip",
+    "flip": "Flip camera",
+    "micOn": "Mic on",
+    "micOff": "Mic off",
+    "permissionDenied": "Camera access is required.",
+    "permissionHelp": "Open your browser settings and allow camera + microphone for this site, then come back.",
+    "countdown": "Starting in {seconds}…",
+    "timeLeft": "{seconds}s left"
+  },
+  "processing": {
+    "title": "Preparing your video…",
+    "uploadingLabel": "Uploading your clip",
+    "renderingLabel": "Polishing for TikTok",
+    "almostDone": "Almost done!",
+    "failed": "Something went wrong",
+    "retry": "Try again",
+    "cancel": "Cancel"
+  },
+  "preview": {
+    "title": "Your video is ready!",
+    "download": "Download MP4",
+    "copyCaption": "Copy caption",
+    "captionCopied": "Copied!",
+    "openTikTok": "Open TikTok",
+    "saveDraft": "Save draft",
+    "makeAnother": "Make another",
+    "captionLabel": "Caption",
+    "hookLabel": "Opening line",
+    "tiktokHint": "Download the video, then open TikTok to post it."
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "network": "No internet connection. Please check your network.",
+    "uploadFailed": "Upload failed. Tap retry to try again.",
+    "renderFailed": "Video processing failed. Please try again."
+  }
+}

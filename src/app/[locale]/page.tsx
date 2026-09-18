@@ -52,7 +52,7 @@ export default async function WelcomePage({ params }: WelcomePageProps) {
 
         {/* CTA */}
         <Link
-          href={`/${locale}/create`}
+          href={`/${locale}/snap`}
           className="w-full max-w-xs bg-orange-600 hover:bg-orange-700 active:scale-95 text-white font-bold text-xl py-5 rounded-2xl text-center transition-all shadow-lg touch-manipulation"
         >
           {t("start")}

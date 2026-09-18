@@ -93,6 +93,36 @@
     "hookLabel": "መጀመሪያ ዓረፍተ ነገር",
     "tiktokHint": "ቪዲዮውን ያውርዱ, ከዚያ ቲክቶክ ይክፈቱ።"
   },
+  "selfie": {
+    "liveHook": "እንደዚህ ፈጽሞ አይተው አያውቁም ✨",
+    "liveSub": "AI ፊትዎን ሊለውጥ ነው",
+    "capturedHook": "ቆንጆ ፎቶ! ቫይራል ለመሆን ዝግጁ? 🔥",
+    "capturedSub": "ወደ ታች ይጫኑ — AI ተዓምር ይሠራል",
+    "faceGuide": "ፊትዎን ወደ ክበቡ ያቅርቡ",
+    "snap": "ፎቶ ያንሱ",
+    "makeItFunny": "ቫይራል አድርገው!",
+    "retake": "እንደገና ያንሱ",
+    "generating": "እየፈጠርን ነው…",
+    "permissionDenied": "የካሜራ ፈቃድ ያስፈልጋል",
+    "permissionHelp": "የአሳሽ ቅንብሮችን ይክፈቱ, ካሜራ ይፍቀዱ, ከዚያ ይመለሱ።",
+    "tryAgain": "እንደገና ሞክር",
+    "error": "ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።"
+  },
+  "result": {
+    "processingTitle": "AI ተዓምር እየሠራ ነው…",
+    "processingSubtitle": "የለውጥዎ ምስል እየተፈጠረ ነው",
+    "failedTitle": "ችግር ተፈጥሯል። እንደገና ይሞክሩ?",
+    "tryAgain": "እንደገና ሞክር",
+    "readyBadge": "የ AI ምስልዎ ዝግጁ ነው!",
+    "lockedSubtitle": "ምስልዎን ለማየት ቆልፉን ለመክፈት ይጠይቁ",
+    "lockedLabel": "እስኪፈቀድ ድረስ ተቆልፏል",
+    "requestUnlock": "ምስሌን ክፈት!",
+    "requestHint": "ጥያቄዎ ወደ ቡድናችን ይሄዳል። ብዙም ሳይቆይ እናስፈቅዳለን።",
+    "requestSent": "ጥያቄ ተልኳል! ቆይቶ ይመልከቱ።",
+    "unlockedBadge": "🎉 ተከፍቷል!",
+    "download": "ምስሉን አውርድ",
+    "makeAnother": "ሌላ ፍጠር"
+  },
   "errors": {
     "generic": "ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ።",
     "network": "ኢንተርኔት ግንኙነት የለም። ኔትወርክዎን ያረጋግጡ።",

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { useSessionStore } from "@/store/session";
@@ -87,9 +88,9 @@ export default function ResultPage() {
         <h1 className="text-white font-bold text-xl">
           {data.status === "rejected" ? "Not approved this time" : "Something went wrong"}
         </h1>
-        <a href="/" className="bg-orange-600 text-white font-bold py-4 px-8 rounded-2xl">
+        <Link href="/" className="bg-orange-600 text-white font-bold py-4 px-8 rounded-2xl">
           Try Again
-        </a>
+        </Link>
       </div>
     );
   }
@@ -114,12 +115,12 @@ export default function ResultPage() {
           >
             Download Image
           </a>
-          <a
+          <Link
             href="/"
             className="w-full flex items-center justify-center gap-2 border border-white/20 text-white font-semibold py-4 rounded-2xl"
           >
             Make Another
-          </a>
+          </Link>
         </div>
       </div>
     );

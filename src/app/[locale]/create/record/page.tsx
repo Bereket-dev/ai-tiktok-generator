@@ -1,7 +1,6 @@
 "use client";
 
 import { useSessionStore } from "@/store/session";
-import { useTranslations } from "next-intl";
 import { getPromptPack } from "@/lib/prompts";
 import CameraRecorder from "@/components/CameraRecorder";
 import type { PromptKey } from "@/lib/prompts";
@@ -13,7 +12,6 @@ export default function RecordPage() {
   const params = useParams();
   const router = useRouter();
   const locale = params.locale as SupportedLocale;
-  const t = useTranslations("record");
   const { selectedPromptKey } = useSessionStore();
 
   useEffect(() => {

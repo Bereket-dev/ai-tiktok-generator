@@ -1,11 +1,6 @@
-"use client";
+import { redirect } from "next/navigation";
 
-import { useParams } from "next/navigation";
-import SelfieCam from "@/components/SelfieCam";
-import type { SupportedLocale } from "@/i18n";
-
-export default function SnapPage() {
-  const params = useParams();
-  const locale = params.locale as SupportedLocale;
-  return <SelfieCam locale={locale} />;
+/** Old /[locale]/snap → root camera */
+export default function SnapRedirect() {
+  redirect("/");
 }

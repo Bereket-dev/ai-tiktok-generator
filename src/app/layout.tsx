@@ -1,14 +1,15 @@
 import type { Metadata, Viewport } from "next";
+import Providers from "@/app/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "TikTok Creator",
-  description: "Record a short clip. Get one ready-to-post TikTok video.",
+  title: "Funny Photo Booth",
+  description: "Scan, snap, get a funny AI photo.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "TikTok Creator",
+    title: "Photo Booth",
   },
 };
 
@@ -26,8 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="am" className="h-full">
-      <body className="min-h-full flex flex-col antialiased">{children}</body>
+    <html lang="en" className="h-full">
+      <body className="min-h-full flex flex-col antialiased">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

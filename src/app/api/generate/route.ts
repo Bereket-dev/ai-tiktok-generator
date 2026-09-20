@@ -13,7 +13,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing selfie or session_id" }, { status: 400 });
     }
 
-    // 1. Upload selfie to Cloudinary
+    // Block banned devices
+    const { data: banned } = await db()
+      .from("banned_devices")
+      .select("session_id")
+      .eq("session_id", sessionId)
+      .maybeSingle();
+
+    if (banned) {
+      return NextResponse.json({ error: "Device banned" }, { status: 403 });
+    }
+
     const buffer = Buffer.from(await selfieFile.arrayBuffer());
     const selfieUpload = await uploadToCloudinary(buffer, {
       folder: "tiktok-creator/selfies",
@@ -21,10 +31,9 @@ export async function POST(req: NextRequest) {
       tags: ["selfie", sessionId],
     });
 
-    // 2. Generate funny image URL via Cloudinary transformations (free, instant)
     const { imageUrl, style } = generateFunnyImage(selfieUpload.publicId);
 
-    // 3. Save generation request as "ready" immediately
+    // Ready + unlock_requested so admin sees it immediately
     const { data: request, error: insertError } = await db()
       .from("generation_requests")
       .insert({
@@ -33,7 +42,7 @@ export async function POST(req: NextRequest) {
         selfie_public_id: selfieUpload.publicId,
         result_url: imageUrl,
         style,
-        status: "ready",
+        status: "unlock_requested",
       })
       .select()
       .single();

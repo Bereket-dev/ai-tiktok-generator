@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
 
-// Simple token auth — set ADMIN_SECRET in env
 function isAdmin(req: NextRequest) {
   const token = req.headers.get("x-admin-token") ?? req.nextUrl.searchParams.get("token");
   return token === process.env.ADMIN_SECRET;
 }
 
-// GET /api/admin/requests — list all generation requests
 export async function GET(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
@@ -24,5 +22,21 @@ export async function GET(req: NextRequest) {
   const { data, error } = await query;
   if (error) return NextResponse.json({ error: "DB error" }, { status: 500 });
 
-  return NextResponse.json({ requests: data });
+  const sessionIds = [...new Set((data ?? []).map((r: { session_id: string }) => r.session_id))];
+  let bannedSet = new Set<string>();
+
+  if (sessionIds.length > 0) {
+    const { data: banned } = await db()
+      .from("banned_devices")
+      .select("session_id")
+      .in("session_id", sessionIds);
+    bannedSet = new Set((banned ?? []).map((b: { session_id: string }) => b.session_id));
+  }
+
+  const requests = (data ?? []).map((r: { session_id: string }) => ({
+    ...r,
+    banned: bannedSet.has(r.session_id),
+  }));
+
+  return NextResponse.json({ requests });
 }

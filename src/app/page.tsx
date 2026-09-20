@@ -1,7 +1,6 @@
-import { redirect } from "next/navigation";
-import { defaultLocale } from "@/i18n";
+import SelfieCam from "@/components/SelfieCam";
 
-// Root "/" redirects to the default locale
-export default function RootPage() {
-  redirect(`/${defaultLocale}`);
+/** QR lands here — camera opens immediately, no setup page. */
+export default function HomePage() {
+  return <SelfieCam />;
 }

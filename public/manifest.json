@@ -1,8 +1,8 @@
 {
-  "name": "TikTok Creator",
-  "short_name": "Creator",
-  "description": "Record a short clip. Get one ready-to-post TikTok video.",
-  "start_url": "/am",
+  "name": "አስቂኝ ፎቶ ቡዝ",
+  "short_name": "ፎቶ ቡዝ",
+  "description": "ይቅረጹ፣ አስቂኝ የኤአይ ምስል ያግኙ።",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#fff7ed",
   "theme_color": "#c2410c",
@@ -26,10 +26,10 @@
   "screenshots": [],
   "shortcuts": [
     {
-      "name": "Create Video",
-      "short_name": "Create",
-      "description": "Start creating a new TikTok video",
-      "url": "/am/create",
+      "name": "ፎቶ አንሳ",
+      "short_name": "አንሳ",
+      "description": "አስቂኝ የኤአይ ፎቶ ይጀምሩ",
+      "url": "/",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }
   ]

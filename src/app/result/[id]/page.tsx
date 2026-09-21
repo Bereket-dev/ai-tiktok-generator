@@ -9,7 +9,7 @@ import { Lock, Zap, CheckCircle } from "lucide-react";
 import { STYLE_META, type FunnyStyle } from "@/lib/funny-styles";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_HOOK = "Your AI transformation is ready 🤩";
+const DEFAULT_HOOK = "የኤአይ ለውጥዎ ዝግጁ ነው 🤩";
 
 export default function ResultPage() {
   const params = useParams();
@@ -75,8 +75,8 @@ export default function ResultPage() {
           <div className="absolute inset-0 flex items-center justify-center text-4xl">🤖</div>
         </div>
         <div className="text-center">
-          <h1 className="text-white font-black text-2xl">Cooking your look…</h1>
-          <p className="text-orange-300 text-sm mt-2 animate-pulse">Almost there</p>
+          <h1 className="text-white font-black text-2xl">ምስልዎ እየተዘጋጀ ነው…</h1>
+          <p className="text-orange-300 text-sm mt-2 animate-pulse">ጥቂት ቀርቷል</p>
         </div>
       </div>
     );
@@ -87,10 +87,10 @@ export default function ResultPage() {
       <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center gap-6 px-6 text-center">
         <span className="text-6xl">{data.status === "rejected" ? "🚫" : "😬"}</span>
         <h1 className="text-white font-bold text-xl">
-          {data.status === "rejected" ? "Not approved this time" : "Something went wrong"}
+          {data.status === "rejected" ? "በዚህ ጊዜ አልተፈቀደም" : "ስህተት ተከስቷል"}
         </h1>
         <Link href="/" className="bg-orange-600 text-white font-bold py-4 px-8 rounded-2xl">
-          Try Again
+          እንደገና ይሞክሩ
         </Link>
       </div>
     );
@@ -100,13 +100,11 @@ export default function ResultPage() {
     return (
       <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center gap-6 px-4">
         <div className="text-center">
-          <p className="text-orange-400 font-black text-lg uppercase tracking-widest">
-            Ready
-          </p>
+          <p className="text-orange-400 font-black text-lg tracking-widest">ዝግጁ</p>
           <h1 className="text-white font-black text-3xl mt-1">{hook}</h1>
         </div>
         <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl ring-4 ring-orange-500">
-          <img src={data.result_url} alt="Your AI image" className="w-full h-full object-cover" />
+          <img src={data.result_url} alt="የኤአይ ምስልዎ" className="w-full h-full object-cover" />
         </div>
         <div className="flex flex-col gap-3 w-full max-w-sm">
           <a
@@ -116,13 +114,13 @@ export default function ResultPage() {
             rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-2 bg-orange-600 text-white font-bold py-4 rounded-2xl"
           >
-            Download Image
+            ምስል አውርድ
           </a>
           <Link
             href="/"
             className="w-full flex items-center justify-center gap-2 border border-white/20 text-white font-semibold py-4 rounded-2xl"
           >
-            Make Another
+            ሌላ ይስሩ
           </Link>
         </div>
       </div>
@@ -132,11 +130,11 @@ export default function ResultPage() {
   return (
     <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center gap-6 px-4">
       <div className="text-center px-4">
-        <p className="text-orange-400 text-sm font-bold uppercase tracking-widest mb-2">
-          Funny image ready!
+        <p className="text-orange-400 text-sm font-bold tracking-widest mb-2">
+          አስቂኝ ምስል ዝግጁ ነው!
         </p>
         <h1 className="text-white font-black text-2xl leading-tight">{hook}</h1>
-        <p className="text-stone-400 text-sm mt-2">Waiting for host to unlock</p>
+        <p className="text-stone-400 text-sm mt-2">አስተናጋጁ እንዲከፍት በመጠባበቅ ላይ</p>
       </div>
 
       <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl ring-2 ring-orange-500/50">
@@ -148,7 +146,7 @@ export default function ResultPage() {
           <div className="w-20 h-20 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center ring-2 ring-orange-500">
             <Lock className="w-9 h-9 text-orange-400" />
           </div>
-          <p className="text-white font-bold text-base drop-shadow-lg">Locked until approved</p>
+          <p className="text-white font-bold text-base drop-shadow-lg">እስከሚፈቀድ ድረስ ተቆልፏል</p>
         </div>
       </div>
 
@@ -160,12 +158,12 @@ export default function ResultPage() {
             )}
           >
             <CheckCircle className="w-6 h-6" />
-            Sent to host — hang tight
+            ወደ አስተናጋጁ ተልኳል — ትንሽ ይጠብቁ
           </div>
         ) : (
           <div className="w-full flex items-center justify-center gap-3 bg-orange-600 text-white font-black text-lg py-5 rounded-2xl">
             <Zap className="w-6 h-6" fill="white" />
-            Requesting unlock…
+            ፈቃድ በመጠየቅ ላይ…
           </div>
         )}
       </div>

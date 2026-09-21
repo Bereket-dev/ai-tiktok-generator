@@ -6,7 +6,7 @@ import { Camera, RotateCcw, SwitchCamera, Zap } from "lucide-react";
 import { useSessionStore } from "@/store/session";
 import { cn } from "@/lib/utils";
 
-type State = "loading" | "ready" | "countdown" | "captured" | "permission_error" | "banned";
+type State = "loading" | "ready" | "captured" | "permission_error" | "banned";
 type Facing = "user" | "environment";
 
 export default function SelfieCam() {
@@ -19,7 +19,6 @@ export default function SelfieCam() {
 
   const [state, setState] = useState<State>("loading");
   const [facing, setFacing] = useState<Facing>("user");
-  const [countdown, setCountdown] = useState(3);
   const [capturedUrl, setCapturedUrl] = useState<string | null>(null);
   const [capturedBlob, setCapturedBlob] = useState<Blob | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -50,25 +49,10 @@ export default function SelfieCam() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (state !== "countdown") return;
-    if (countdown <= 0) {
-      snap();
-      return;
-    }
-    const id = setTimeout(() => setCountdown((c) => c - 1), 1000);
-    return () => clearTimeout(id);
-  });
-
   const flipCamera = async () => {
     const next: Facing = facing === "user" ? "environment" : "user";
     setState("loading");
     await startCamera(next);
-  };
-
-  const startCountdown = () => {
-    setCountdown(3);
-    setState("countdown");
   };
 
   const snap = () => {
@@ -134,7 +118,7 @@ export default function SelfieCam() {
       router.push(`/result/${request_id}`);
     } catch {
       setSubmitting(false);
-      alert("Something went wrong. Please try again.");
+      alert("ስህተት ተከስቷል። እባክዎ እንደገና ይሞክሩ።");
     }
   };
 
@@ -142,9 +126,9 @@ export default function SelfieCam() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-stone-900 text-white px-6 gap-4 text-center">
         <span className="text-6xl">🚫</span>
-        <h2 className="text-xl font-bold">Access blocked</h2>
+        <h2 className="text-xl font-bold">መዳረሻ ታግዷል</h2>
         <p className="text-stone-400 text-sm max-w-xs">
-          This device can&apos;t use the booth right now.
+          ይህ መሣሪያ አሁን ቡዝን መጠቀም አይችልም።
         </p>
       </div>
     );
@@ -154,15 +138,15 @@ export default function SelfieCam() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-stone-900 text-white px-6 gap-6 text-center">
         <span className="text-6xl">📷</span>
-        <h2 className="text-xl font-bold">Camera access required</h2>
+        <h2 className="text-xl font-bold">የካሜራ ፈቃድ ያስፈልጋል</h2>
         <p className="text-stone-400 text-sm max-w-xs">
-          Allow camera access in your browser settings, then try again.
+          በአሳሽዎ ቅንብሮች ውስጥ ካሜራን ይፍቀዱ፣ ከዚያ እንደገና ይሞክሩ።
         </p>
         <button
           onClick={() => startCamera(facing)}
           className="bg-orange-600 text-white font-bold py-4 px-8 rounded-2xl"
         >
-          Try Again
+          እንደገና ይሞክሩ
         </button>
       </div>
     );
@@ -188,19 +172,18 @@ export default function SelfieCam() {
       {state === "captured" && capturedUrl && (
         <img
           src={capturedUrl}
-          alt="Captured"
+          alt="የተነሳ ፎቶ"
           className="absolute inset-0 w-full h-full object-cover"
         />
       )}
 
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
 
-      {/* Flip camera */}
-      {(state === "ready" || state === "countdown") && (
+      {state === "ready" && (
         <button
           onClick={flipCamera}
           className="absolute top-6 right-4 z-20 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white active:scale-95 touch-manipulation"
-          aria-label="Flip camera"
+          aria-label="ካሜራ ቀይር"
         >
           <SwitchCamera className="w-6 h-6" />
         </button>
@@ -208,43 +191,34 @@ export default function SelfieCam() {
 
       <div className="absolute top-8 left-4 right-16 z-10 text-center">
         <p className="text-white font-black text-2xl drop-shadow-lg leading-tight">
-          {state === "captured" ? "Looking good!" : "Strike a pose"}
+          {state === "captured" ? "ጥሩ ይመስላል!" : "አቋም ይውሰዱ"}
         </p>
         <p className="text-orange-300 text-sm mt-1 font-medium">
           {state === "captured"
-            ? "Tap below for your funny AI look"
+            ? "አስቂኝ ምስልዎን ከታች ይጫኑ"
             : isFront
-              ? "Front camera · flip for back"
-              : "Back camera · flip for selfie"}
+              ? "የፊት ካሜራ · ለኋላ ይቀይሩ"
+              : "የኋላ ካሜራ · ለሴልፊ ይቀይሩ"}
         </p>
       </div>
 
-      {(state === "ready" || state === "countdown") && (
+      {state === "ready" && (
         <div
           className={cn(
             "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[55%] z-10",
-            "w-64 h-64 rounded-full border-4 border-dashed",
-            state === "countdown" ? "border-orange-400 animate-pulse" : "border-white/50"
+            "w-64 h-64 rounded-full border-4 border-dashed border-white/50"
           )}
         />
-      )}
-
-      {state === "countdown" && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center">
-          <span className="text-white text-[140px] font-black drop-shadow-2xl leading-none animate-bounce">
-            {countdown}
-          </span>
-        </div>
       )}
 
       <div className="absolute bottom-0 left-0 right-0 z-20 pb-10 px-6 flex flex-col items-center gap-4">
         {state === "ready" && (
           <>
-            <p className="text-white/70 text-sm text-center">Center your face, then snap</p>
+            <p className="text-white/70 text-sm text-center">ፊትዎን መሃል ያድርጉ፣ ከዚያ ይቅረጹ</p>
             <button
-              onClick={startCountdown}
+              onClick={snap}
               className="w-24 h-24 rounded-full bg-white border-4 border-orange-500 flex items-center justify-center shadow-2xl active:scale-95 transition-transform touch-manipulation"
-              aria-label="Take photo"
+              aria-label="ፎቶ አንሳ"
             >
               <Camera className="w-10 h-10 text-orange-600" />
             </button>
@@ -265,12 +239,12 @@ export default function SelfieCam() {
               {submitting ? (
                 <>
                   <div className="w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                  AI is roasting you…
+                  ኤአይ እያስቃዎት ነው…
                 </>
               ) : (
                 <>
                   <Zap className="w-6 h-6" fill="white" />
-                  Make It Funny!
+                  አስቂኝ አድርገው!
                 </>
               )}
             </button>
@@ -279,7 +253,7 @@ export default function SelfieCam() {
               disabled={submitting}
               className="w-full flex items-center justify-center gap-2 border border-white/40 text-white font-semibold py-4 rounded-2xl active:scale-95 transition-all touch-manipulation"
             >
-              <RotateCcw className="w-5 h-5" /> Retake
+              <RotateCcw className="w-5 h-5" /> እንደገና ያንሱ
             </button>
           </div>
         )}

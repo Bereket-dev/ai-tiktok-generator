@@ -3,13 +3,13 @@ import Providers from "@/app/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Funny Photo Booth",
-  description: "Scan, snap, get a funny AI photo.",
+  title: "አስቂኝ ፎቶ ቡዝ",
+  description: "ይቃኙ፣ ይቅረጹ፣ አስቂኝ የኤአይ ፎቶ ያግኙ።",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Photo Booth",
+    title: "ፎቶ ቡዝ",
   },
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="am" className="h-full">
       <body className="min-h-full flex flex-col antialiased">
         <Providers>{children}</Providers>
       </body>

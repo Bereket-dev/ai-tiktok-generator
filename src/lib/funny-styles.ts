@@ -1,5 +1,5 @@
 /**
- * Client-safe funny style metadata (no Node / Cloudinary imports).
+ * Client-safe funny style metadata (Amharic only).
  */
 
 export type FunnyStyle =
@@ -21,43 +21,31 @@ export const STYLES: FunnyStyle[] = [
 
 export const STYLE_META: Record<
   FunnyStyle,
-  { label: string; labelAm: string; hook: string; hookAm: string }
+  { label: string; hook: string }
 > = {
   caricature: {
-    label: "Caricature Roast",
-    labelAm: "ካሪካቸር",
-    hook: "Someone drew you mean… and hilarious ✏️",
-    hookAm: "በጣም አስቂኝ ካሪካቸር ተሣልቷል ✏️",
+    label: "ካሪካቸር",
+    hook: "በጣም አስቂኝ ካሪካቸር ተሣልቷል ✏️",
   },
   pixar_chaos: {
-    label: "Pixar Chaos",
-    labelAm: "ፒክሳር ቀልድ",
-    hook: "You just stole a Pixar short film 🎬",
-    hookAm: "የፒክሳር ፊልም ሰረቁ 🎬",
+    label: "ፒክሳር ቀልድ",
+    hook: "የፒክሳር ፊልም ሰረቁ 🎬",
   },
   meme_legend: {
-    label: "Meme Legend",
-    labelAm: "ሚም አፈ ታሪክ",
-    hook: "This face is about to break the internet 💀",
-    hookAm: "ይህ ፊት ኢንተርኔትን ይሰብራል 💀",
+    label: "ሚም አፈ ታሪክ",
+    hook: "ይህ ፊት ኢንተርኔትን ይሰብራል 💀",
   },
   superhero_fail: {
-    label: "Hero Fail",
-    labelAm: "ጀግና ውድቀት",
-    hook: "Your origin story needs work 🦸",
-    hookAm: "የጀግንነት ታሪክዎ ማሻሻያ ይፈልጋል 🦸",
+    label: "ጀግና ውድቀት",
+    hook: "የጀግንነት ታሪክዎ ማሻሻያ ይፈልጋል 🦸",
   },
   animal_mascot: {
-    label: "Mascot Mode",
-    labelAm: "ማስኮት",
-    hook: "School spirit never looked this silly 🦁",
-    hookAm: "ትምህርት ቤት መንፈስ በጣም አስቂኝ ነው 🦁",
+    label: "ማስኮት",
+    hook: "ትምህርት ቤት መንፈስ በጣም አስቂኝ ነው 🦁",
   },
   yearbook_roast: {
-    label: "Yearbook Roast",
-    labelAm: "የዓመት መጽሐፍ",
-    hook: "Class of '97 called… they want their photo back 📸",
-    hookAm: "የ1997 ክፍል ፎቶዎን ይፈልጋል 📸",
+    label: "የዓመት መጽሐፍ",
+    hook: "የ1997 ክፍል ፎቶዎን ይፈልጋል 📸",
   },
 };
 

@@ -3,13 +3,13 @@ import Providers from "@/app/providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "አስቂኝ ፎቶ ቡዝ",
-  description: "ይቃኙ፣ ይቅረጹ፣ አስቂኝ የኤአይ ፎቶ ያግኙ።",
+  title: "አስቂኝ ፎቶ ይውሰዱ",
+  description: "ይቃኙ፣ ይቅረጹ፣ አስቂኝ ፎቶ ያግኙ።",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "ፎቶ ቡዝ",
+    title: "ፎቶ ውሰድ",
   },
 };
 

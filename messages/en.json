@@ -93,36 +93,6 @@
     "hookLabel": "Opening line",
     "tiktokHint": "Download the video, then open TikTok to post it."
   },
-  "selfie": {
-    "liveHook": "See yourself like never before ✨",
-    "liveSub": "AI is about to do something wild to your face",
-    "capturedHook": "Looking good! Ready to go viral? 🔥",
-    "capturedSub": "Tap below and let the AI work its magic",
-    "faceGuide": "Center your face in the circle",
-    "snap": "Take photo",
-    "makeItFunny": "Make It Viral!",
-    "retake": "Retake",
-    "generating": "Generating…",
-    "permissionDenied": "Camera access required",
-    "permissionHelp": "Open browser settings, allow camera for this site, then come back.",
-    "tryAgain": "Try Again",
-    "error": "Something went wrong. Please try again."
-  },
-  "result": {
-    "processingTitle": "AI is working its magic…",
-    "processingSubtitle": "Your transformation is being created",
-    "failedTitle": "Something went wrong. Try again?",
-    "tryAgain": "Try Again",
-    "readyBadge": "Your AI image is ready!",
-    "lockedSubtitle": "Request to unlock and see your transformation",
-    "lockedLabel": "Locked until approved",
-    "requestUnlock": "Unlock My Image!",
-    "requestHint": "Your request goes to our team. We'll unlock it shortly.",
-    "requestSent": "Request sent! Check back soon.",
-    "unlockedBadge": "🎉 Unlocked!",
-    "download": "Download Image",
-    "makeAnother": "Make Another"
-  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "network": "No internet connection. Please check your network.",

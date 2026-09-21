@@ -9,7 +9,7 @@ import { Lock, Zap, CheckCircle } from "lucide-react";
 import { STYLE_META, type FunnyStyle } from "@/lib/funny-styles";
 import { cn } from "@/lib/utils";
 
-const DEFAULT_HOOK = "የኤአይ ለውጥዎ ዝግጁ ነው 🤩";
+const DEFAULT_HOOK = "ለመቀየር ዝግጁ ነው 🤩";
 
 export default function ResultPage() {
   const params = useParams();
@@ -104,7 +104,7 @@ export default function ResultPage() {
           <h1 className="text-white font-black text-3xl mt-1">{hook}</h1>
         </div>
         <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl ring-4 ring-orange-500">
-          <img src={data.result_url} alt="የኤአይ ምስልዎ" className="w-full h-full object-cover" />
+          <img src={data.result_url} alt="ምስልዎን ይዩ" className="w-full h-full object-cover" />
         </div>
         <div className="flex flex-col gap-3 w-full max-w-sm">
           <a
@@ -134,7 +134,7 @@ export default function ResultPage() {
           አስቂኝ ምስል ዝግጁ ነው!
         </p>
         <h1 className="text-white font-black text-2xl leading-tight">{hook}</h1>
-        <p className="text-stone-400 text-sm mt-2">አስተናጋጁ እንዲከፍት በመጠባበቅ ላይ</p>
+        <p className="text-stone-400 text-sm mt-2">አድሚኑ እስኪፈቅድ በመጠባበቅ ላይ</p>
       </div>
 
       <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl ring-2 ring-orange-500/50">
@@ -146,7 +146,7 @@ export default function ResultPage() {
           <div className="w-20 h-20 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center ring-2 ring-orange-500">
             <Lock className="w-9 h-9 text-orange-400" />
           </div>
-          <p className="text-white font-bold text-base drop-shadow-lg">እስከሚፈቀድ ድረስ ተቆልፏል</p>
+          <p className="text-white font-bold text-base drop-shadow-lg">በመሆኑ ተቆልፏል</p>
         </div>
       </div>
 

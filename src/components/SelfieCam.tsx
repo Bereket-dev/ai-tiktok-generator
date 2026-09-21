@@ -128,7 +128,7 @@ export default function SelfieCam() {
         <span className="text-6xl">🚫</span>
         <h2 className="text-xl font-bold">መዳረሻ ታግዷል</h2>
         <p className="text-stone-400 text-sm max-w-xs">
-          ይህ መሣሪያ አሁን ቡዝን መጠቀም አይችልም።
+          ይህ መሣሪያ ለጊዜው መቀየር አይችልም።
         </p>
       </div>
     );
@@ -198,7 +198,7 @@ export default function SelfieCam() {
             ? "አስቂኝ ምስልዎን ከታች ይጫኑ"
             : isFront
               ? "የፊት ካሜራ · ለኋላ ይቀይሩ"
-              : "የኋላ ካሜራ · ለሴልፊ ይቀይሩ"}
+              : "የኋላ ካሜራ · ለሰልፊ ይቀይሩ"}
         </p>
       </div>
 
@@ -239,7 +239,7 @@ export default function SelfieCam() {
               {submitting ? (
                 <>
                   <div className="w-5 h-5 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                  ኤአይ እያስቃዎት ነው…
+                  አየተቀየረ ነው…
                 </>
               ) : (
                 <>

@@ -1,7 +1,7 @@
 {
-  "name": "አስቂኝ ፎቶ ቡዝ",
-  "short_name": "ፎቶ ቡዝ",
-  "description": "ይቅረጹ፣ አስቂኝ የኤአይ ምስል ያግኙ።",
+  "name": "አስቂኝ ፎቶ ይውሰዱ",
+  "short_name": "ፎቶ ውሰድ",
+  "description": "ይቅረጹ፣ አስቂኝ ምስል ያግኙ።",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff7ed",
@@ -28,7 +28,7 @@
     {
       "name": "ፎቶ አንሳ",
       "short_name": "አንሳ",
-      "description": "አስቂኝ የኤአይ ፎቶ ይጀምሩ",
+      "description": "ቀይሩ",
       "url": "/",
       "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
     }

@@ -25,27 +25,27 @@ export const STYLE_META: Record<
   { label: string; hook: string }
 > = {
   caricature: {
-    label: "ሽርሽራ አልባሳት",
-    hook: "ይህ እርስዎ ነው — በሽርሽራ ልብስ! 🤡",
+    label: "ልብሶን ከመቼው ቀየሩ",
+    hook: "እንዴት ነው ሚያምረው ልብሶ! 🤡",
   },
   pixar_chaos: {
     label: "ካርቱን ልብስ",
     hook: "ፊትዎ ነው — ካርቱን ልብስ ለብሰዋል 🎬",
   },
   meme_legend: {
-    label: "ሚም ልብስ",
-    hook: "እርስዎ በሚም ልብስ ኢንተርኔትን ሰበሩ 💀",
+    label: "ሜም ልብስ",
+    hook: "እርስዎ በሜም ልብስ ኢንተርኔትን ሰበሩ 💀",
   },
   superhero_fail: {
     label: "ጀግና ውድቀት",
     hook: "ጀግናው እርስዎ ነው — ኬፑ ግን ትንሽ ነው 🦸",
   },
   animal_mascot: {
-    label: "ማስኮት",
-    hook: "ፊትዎ ማስኮት ሆነ — አሁንም እርስዎ ነዎት 🦁",
+    label: "ማስክ",
+    hook: "ፊትዎ ላይ ማስክ ሆነ — አሁንም እርስዎ ነዎት 🦁",
   },
   yearbook_roast: {
-    label: "የዓመት መጽሐፍ",
+    label: "የዓመት ገፅ",
     hook: "የ1997 ፎቶዎ — ግን አሁንም እርስዎ ነዎት 📸",
   },
 };

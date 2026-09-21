@@ -3,6 +3,8 @@ import { db } from "@/lib/supabase";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 import { generateFunnyImage } from "@/lib/fal";
 
+export const maxDuration = 90;
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
@@ -31,7 +33,10 @@ export async function POST(req: NextRequest) {
       tags: ["selfie", sessionId],
     });
 
-    const { imageUrl, style } = generateFunnyImage(selfieUpload.publicId);
+    const { imageUrl, style } = await generateFunnyImage({
+      selfieUrl: selfieUpload.secureUrl,
+      publicId: selfieUpload.publicId,
+    });
 
     // Ready + unlock_requested so admin sees it immediately
     const { data: request, error: insertError } = await db()

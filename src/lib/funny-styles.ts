@@ -1,5 +1,6 @@
 /**
  * Client-safe funny style metadata (Amharic only).
+ * Comedy = YOU in a silly costume (same face, absurd outfit/scene).
  */
 
 export type FunnyStyle =
@@ -24,28 +25,28 @@ export const STYLE_META: Record<
   { label: string; hook: string }
 > = {
   caricature: {
-    label: "ካሪካቸር",
-    hook: "በጣም አስቂኝ ካሪካቸር ተሣልቷል ✏️",
+    label: "ሽርሽራ አልባሳት",
+    hook: "ይህ እርስዎ ነው — በሽርሽራ ልብስ! 🤡",
   },
   pixar_chaos: {
-    label: "ፒክሳር ቀልድ",
-    hook: "የፒክሳር ፊልም ሰረቁ 🎬",
+    label: "ካርቱን ልብስ",
+    hook: "ፊትዎ ነው — ካርቱን ልብስ ለብሰዋል 🎬",
   },
   meme_legend: {
-    label: "ሚም አፈ ታሪክ",
-    hook: "ይህ ፊት ኢንተርኔትን ይሰብራል 💀",
+    label: "ሚም ልብስ",
+    hook: "እርስዎ በሚም ልብስ ኢንተርኔትን ሰበሩ 💀",
   },
   superhero_fail: {
     label: "ጀግና ውድቀት",
-    hook: "የጀግንነት ታሪክዎ ማሻሻያ ይፈልጋል 🦸",
+    hook: "ጀግናው እርስዎ ነው — ኬፑ ግን ትንሽ ነው 🦸",
   },
   animal_mascot: {
     label: "ማስኮት",
-    hook: "ትምህርት ቤት መንፈስ በጣም አስቂኝ ነው 🦁",
+    hook: "ፊትዎ ማስኮት ሆነ — አሁንም እርስዎ ነዎት 🦁",
   },
   yearbook_roast: {
     label: "የዓመት መጽሐፍ",
-    hook: "የ1997 ክፍል ፎቶዎን ይፈልጋል 📸",
+    hook: "የ1997 ፎቶዎ — ግን አሁንም እርስዎ ነዎት 📸",
   },
 };
 

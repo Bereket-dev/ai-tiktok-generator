@@ -1,11 +1,12 @@
 /**
  * Funny selfie → generative AI image (free tier only, no payment).
  *
- * Primary: Cloudinary Generative Replace (existing free Cloudinary account)
- * Fallback: Pollinations.ai (no API key)
- * Optional: Google Gemini 2.5 Flash Image via free AI Studio key (best likeness)
+ * Identity first: keep the same face/person recognizable.
+ * Comedy comes from absurd costumes + silly backgrounds — never replace the face.
  *
- * Not a photo filter — the selfie is rewritten by generative AI.
+ * Primary: Cloudinary clothes replace + background replace (face pixels stay)
+ * Optional: Google Gemini 2.5 Flash Image (free AI Studio key)
+ * Fallback: Pollinations Kontext img2img (no API key)
  */
 
 import { cloudinary, uploadToCloudinary } from "@/lib/cloudinary";
@@ -15,22 +16,35 @@ import {
 } from "@/lib/funny-styles";
 
 /**
- * Keep these SHORT — Cloudinary gen_replace URL length is limited;
- * long `to_` strings return HTTP 400.
+ * Clothes-only targets — NEVER face / person / head / eyes.
+ * Keep SHORT (Cloudinary URL length limits).
  */
-const STYLE_TO: Record<FunnyStyle, string> = {
-  caricature:
-    "a hilarious exaggerated cartoon caricature with giant goofy grin and huge head",
-  pixar_chaos:
-    "a funny Pixar style 3D cartoon with oversized head and ridiculous expression",
-  meme_legend:
-    "an absurd internet meme portrait with extreme exaggerated emotion",
-  superhero_fail:
-    "a ridiculous failed superhero comic with tangled cape and funny pose",
-  animal_mascot:
-    "a goofy sports mascot hybrid with big cartoon eyes and plush suit",
-  yearbook_roast:
-    "a savage 1990s yearbook roast with awkward pose and laser eyes",
+const STYLE_COSTUME: Record<FunnyStyle, string> = {
+  caricature: "silly clown suit with big bowtie",
+  pixar_chaos: "bright cartoon character costume",
+  meme_legend: "absurd meme outfit with foam hands",
+  superhero_fail: "tiny failed superhero costume",
+  animal_mascot: "plush animal body mascot suit",
+  yearbook_roast: "cheesy 90s yearbook tuxedo",
+};
+
+/** Silly scene behind the same person — face stays untouched. */
+const STYLE_BG: Record<FunnyStyle, string> = {
+  caricature: "colorful circus tent",
+  pixar_chaos: "toy workshop set",
+  meme_legend: "green screen meme wall",
+  superhero_fail: "messy comic rooftop",
+  animal_mascot: "school sports stadium",
+  yearbook_roast: "1990s school photo backdrop",
+};
+
+const STYLE_LABEL: Record<FunnyStyle, string> = {
+  caricature: "clown-costume roast",
+  pixar_chaos: "cartoon-costume roast",
+  meme_legend: "meme-outfit roast",
+  superhero_fail: "failed-hero costume roast",
+  animal_mascot: "mascot-suit roast",
+  yearbook_roast: "yearbook-tuxedo roast",
 };
 
 export interface GenerateResult {
@@ -67,7 +81,6 @@ async function waitForImageUrl(url: string, attempts = 36): Promise<Buffer> {
       if (!res.ok) {
         const body = buf.toString("utf8").slice(0, 280);
         lastErr = `HTTP ${res.status}: ${body}`;
-        // Non-retryable client errors (except 423 handled above)
         if (res.status >= 400 && res.status < 500 && res.status !== 429) {
           throw new Error(`Cloudinary gen_replace failed: ${lastErr}`);
         }
@@ -88,18 +101,23 @@ async function waitForImageUrl(url: string, attempts = 36): Promise<Buffer> {
 }
 
 /**
- * Free Cloudinary Generative Replace via signed delivery URL.
- * (uploader.explicit eager rejects gen_replace — use URL delivery instead.)
+ * Free Cloudinary: swap clothes + background only.
+ * Face stays the original selfie pixels (best free likeness).
  */
 async function generateWithCloudinary(
   publicId: string,
   style: FunnyStyle
 ): Promise<Buffer> {
-  const to = STYLE_TO[style];
+  const costume = STYLE_COSTUME[style];
+  const bg = STYLE_BG[style];
   const url = cloudinary.url(publicId, {
     transformation: [
       { width: 1024, height: 1024, crop: "fill", gravity: "face" },
-      { effect: `gen_replace:from_the person;to_${to}` },
+      // Replace garments only — preserve body shape so face/pose stay locked
+      {
+        effect: `gen_replace:from_clothes;to_${costume};preserve-geometry_true`,
+      },
+      { effect: `gen_background_replace:prompt_${bg}` },
     ],
     sign_url: true,
   });
@@ -107,7 +125,7 @@ async function generateWithCloudinary(
   return waitForImageUrl(url);
 }
 
-/** Optional free Google AI Studio key — better full redraws. */
+/** Optional free Google AI Studio key — identity-preserving funny edit. */
 async function generateWithGemini(
   selfieUrl: string,
   style: FunnyStyle,
@@ -120,10 +138,13 @@ async function generateWithGemini(
     selfieRes.headers.get("content-type")?.split(";")[0] || "image/jpeg";
 
   const prompt = [
-    `Completely redraw this selfie as: ${STYLE_TO[style]}.`,
-    "Keep the same person recognizable but make it absurdly funny.",
-    "Square 1:1, face-centered, AI illustration, NOT a photo filter.",
-    "No text, watermark, or border.",
+    "Photo booth edit of THIS exact selfie.",
+    "IDENTITY LOCK: Keep the identical real face — same person, skin tone, hair, eyes, nose, mouth, age, and likeness.",
+    "Friends must instantly recognize this is THEM. Do NOT invent or morph a different face.",
+    "ONLY change: clothing and background.",
+    `Dress them in ${STYLE_COSTUME[style]} (${STYLE_LABEL[style]}).`,
+    `Put them in front of: ${STYLE_BG[style]}.`,
+    "Keep photorealistic face from the selfie. Square 1:1, face-centered. No text, watermark, or border.",
   ].join(" ");
 
   const endpoint =
@@ -136,13 +157,13 @@ async function generateWithGemini(
       contents: [
         {
           parts: [
-            { text: prompt },
             {
               inline_data: {
                 mime_type: mimeType,
                 data: selfieBytes.toString("base64"),
               },
             },
+            { text: prompt },
           ],
         },
       ],
@@ -172,27 +193,31 @@ async function generateWithGemini(
   throw new Error("Gemini did not return an image");
 }
 
-/** Free Pollinations img2img — last-resort fallback. */
+/** Free Pollinations Kontext img2img — last-resort; identity-first prompt. */
 async function generateWithPollinations(
   selfieUrl: string,
   style: FunnyStyle
 ): Promise<Buffer> {
   const prompt = [
-    STYLE_TO[style],
-    "extreme comedy cartoon AI art of this exact person",
-    "NOT photorealistic",
-    "NOT a filter",
-    "bold exaggerated features",
+    "edit this exact photo of this exact person",
+    "preserve identical face skin tone hair facial features likeness",
+    "do not change the face",
+    `only change clothes to ${STYLE_COSTUME[style]}`,
+    `background ${STYLE_BG[style]}`,
+    "same person funny photo booth",
+    "no different person",
     "no watermark",
   ].join(", ");
 
   const params = new URLSearchParams({
     width: "1024",
     height: "1024",
-    model: "microsoft/mai-image-2.5-flash",
+    // Kontext is Pollinations' image-to-image model (better face lock)
+    model: "kontext",
     image: selfieUrl,
     nologo: "true",
-    enhance: "true",
+    // enhance rewrites the prompt and often destroys likeness
+    enhance: "false",
     seed: String(Math.floor(Math.random() * 1_000_000_000)),
   });
 
@@ -216,7 +241,7 @@ export interface GenerateInput {
 }
 
 /**
- * Generate a funny AI rewrite of the selfie and store it on Cloudinary.
+ * Generate a funny image that still looks like the selfie person.
  */
 export async function generateFunnyImage(
   input: GenerateInput
@@ -227,10 +252,14 @@ export async function generateFunnyImage(
     process.env.GOOGLE_GENERATIVE_AI_API_KEY?.trim() ||
     "";
 
-  // Default: Cloudinary gen_replace (free, proven funny rewrite).
-  // Optional: Gemini when a free AI Studio key is set (tried first).
-  // Last resort: Pollinations (often too photorealistic).
-  const attempts: Array<{ name: string; run: () => Promise<Buffer> }> = [];
+  // Cloudinary first (best free likeness — face pixels untouched).
+  // Gemini optional. Pollinations Kontext last.
+  const attempts: Array<{ name: string; run: () => Promise<Buffer> }> = [
+    {
+      name: "cloudinary",
+      run: () => generateWithCloudinary(input.publicId, chosenStyle),
+    },
+  ];
 
   if (geminiKey) {
     attempts.push({
@@ -238,10 +267,7 @@ export async function generateFunnyImage(
       run: () => generateWithGemini(input.selfieUrl, chosenStyle, geminiKey),
     });
   }
-  attempts.push({
-    name: "cloudinary",
-    run: () => generateWithCloudinary(input.publicId, chosenStyle),
-  });
+
   attempts.push({
     name: "pollinations",
     run: () => generateWithPollinations(input.selfieUrl, chosenStyle),

@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSessionStore } from "@/store/session";
 import { useEffect, useState } from "react";
 import { Lock, Zap, CheckCircle } from "lucide-react";
-import { STYLE_META, type FunnyStyle } from "@/lib/fal";
+import { STYLE_META, type FunnyStyle } from "@/lib/funny-styles";
 import { cn } from "@/lib/utils";
 
 const DEFAULT_HOOK = "Your AI transformation is ready 🤩";

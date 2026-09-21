@@ -32,10 +32,39 @@ export default function AdminPage() {
   const [token, setToken] = useState("");
   const [authed, setAuthed] = useState(false);
   const [activeToken, setActiveToken] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authChecking, setAuthChecking] = useState(false);
   const [filter, setFilter] = useState("unlock_requested");
   const [preview, setPreview] = useState<GenerationRequest | null>(null);
   const [note, setNote] = useState("");
   const qc = useQueryClient();
+
+  async function verifyAndSignIn() {
+    if (!token || authChecking) return;
+    setAuthError("");
+    setAuthChecking(true);
+    try {
+      const res = await fetch(
+        `/api/admin/requests?status=unlock_requested&token=${encodeURIComponent(token)}`
+      );
+      if (res.status === 401) {
+        setAuthError("Wrong password. Try again.");
+        return;
+      }
+      if (!res.ok) {
+        setAuthError("Sign-in failed. Try again.");
+        return;
+      }
+      const data = (await res.json()) as { requests: GenerationRequest[] };
+      setActiveToken(token);
+      setAuthed(true);
+      qc.setQueryData(["admin-requests", "unlock_requested", token], data);
+    } catch {
+      setAuthError("Sign-in failed. Try again.");
+    } finally {
+      setAuthChecking(false);
+    }
+  }
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["admin-requests", filter, activeToken],
@@ -44,6 +73,8 @@ export default function AdminPage() {
       const res = await fetch(url);
       if (res.status === 401) {
         setAuthed(false);
+        setActiveToken("");
+        setAuthError("Session expired. Sign in again.");
         throw new Error("Unauthorized");
       }
       if (!res.ok) throw new Error("Failed");
@@ -89,26 +120,35 @@ export default function AdminPage() {
           <input
             type="password"
             value={token}
-            onChange={(e) => setToken(e.target.value)}
+            onChange={(e) => {
+              setToken(e.target.value);
+              if (authError) setAuthError("");
+            }}
             placeholder="Admin secret"
-            className="bg-stone-800 text-white border border-stone-600 rounded-xl px-4 py-3 text-sm outline-none focus:border-orange-500"
+            disabled={authChecking}
+            className="bg-stone-800 text-white border border-stone-600 rounded-xl px-4 py-3 text-sm outline-none focus:border-orange-500 disabled:opacity-60"
             onKeyDown={(e) => {
-              if (e.key === "Enter" && token) {
-                setActiveToken(token);
-                setAuthed(true);
-              }
+              if (e.key === "Enter") void verifyAndSignIn();
             }}
           />
+          {authError && (
+            <p className="text-red-400 text-sm text-center" role="alert">
+              {authError}
+            </p>
+          )}
           <button
-            onClick={() => {
-              if (token) {
-                setActiveToken(token);
-                setAuthed(true);
-              }
-            }}
-            className="bg-orange-600 text-white font-bold py-3 rounded-xl"
+            onClick={() => void verifyAndSignIn()}
+            disabled={!token || authChecking}
+            className="bg-orange-600 text-white font-bold py-3 rounded-xl disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            Sign in
+            {authChecking ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                Checking…
+              </>
+            ) : (
+              "Sign in"
+            )}
           </button>
         </div>
       </div>

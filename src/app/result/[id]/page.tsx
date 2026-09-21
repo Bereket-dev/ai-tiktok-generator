@@ -42,6 +42,7 @@ export default function ResultPage() {
   });
 
   // Auto-request unlock once ready so admin sees it without an extra tap
+  // Skipped while SKIP_ADMIN_UNLOCK — API already returns unlocked + result_url
   useEffect(() => {
     if (!data || requestSent || requested) return;
     if (data.unlocked) return;
@@ -99,7 +100,9 @@ export default function ResultPage() {
     return (
       <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center gap-6 px-4">
         <div className="text-center">
-          <p className="text-orange-400 font-black text-lg uppercase tracking-widest">Unlocked</p>
+          <p className="text-orange-400 font-black text-lg uppercase tracking-widest">
+            Ready
+          </p>
           <h1 className="text-white font-black text-3xl mt-1">{hook}</h1>
         </div>
         <div className="relative w-full max-w-sm aspect-square rounded-3xl overflow-hidden shadow-2xl ring-4 ring-orange-500">

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 import { generateFunnyImage } from "@/lib/fal";
+import { SKIP_ADMIN_UNLOCK } from "@/lib/features";
 
 export const maxDuration = 90;
 
@@ -39,6 +40,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Ready + unlock_requested so admin sees it immediately
+    // (while SKIP_ADMIN_UNLOCK: auto-approve so guest sees image now)
     const { data: request, error: insertError } = await db()
       .from("generation_requests")
       .insert({
@@ -47,7 +49,8 @@ export async function POST(req: NextRequest) {
         selfie_public_id: selfieUpload.publicId,
         result_url: imageUrl,
         style,
-        status: "unlock_requested",
+        status: SKIP_ADMIN_UNLOCK ? "approved" : "unlock_requested",
+        unlocked: SKIP_ADMIN_UNLOCK,
       })
       .select()
       .single();

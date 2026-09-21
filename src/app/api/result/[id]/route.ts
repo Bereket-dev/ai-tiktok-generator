@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/supabase";
+import { SKIP_ADMIN_UNLOCK } from "@/lib/features";
 
 export async function GET(
   req: NextRequest,
@@ -23,13 +24,15 @@ export async function GET(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
+  const unlocked = SKIP_ADMIN_UNLOCK ? true : data.unlocked;
+
   // Never expose result_url unless admin has approved (unlocked)
+  // (skipped while SKIP_ADMIN_UNLOCK is true)
   return NextResponse.json({
     id: data.id,
     status: data.status,
     style: data.style,
-    unlocked: data.unlocked,
-    // Only send result_url when unlocked by admin
-    result_url: data.unlocked ? data.result_url : null,
+    unlocked,
+    result_url: unlocked ? data.result_url : null,
   });
 }
